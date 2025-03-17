@@ -43,8 +43,8 @@ adduser.addEventListener('click',(event)=>{
 
     event.preventDefault()
     let emailcheck = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value);
-    if(!emailcheck) return error_msg('red','Invalid gamil');
     if(email.value.trim()==='') return error_msg('red','Email field does not empty');
+    if(!emailcheck) return error_msg('red','Invalid email');    
     if(names.value.trim()==='')return error_msg('red','Please enter name'); 
     if(username.value.trim()==='')return error_msg('red', 'Please enter user name');
 
@@ -59,12 +59,13 @@ adduser.addEventListener('click',(event)=>{
             'username' : username.value
         }  
     )
-
+    
     send_request.send(data);
-    form.reset()
-     getdatas();
-
-     error_msg('green','User add successfully');
+    send_request.onload = ()=>{
+        getdatas();
+        error_msg('green','User add successfully');
+    }
+    form.reset();    
 })
 
 function error_msg(clas,cont){
@@ -77,4 +78,3 @@ function error_msg(clas,cont){
         error.textContent='';
     }, 3000);
 }
-   
