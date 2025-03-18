@@ -1,5 +1,5 @@
 let form = document.querySelector('form');
-let editbtn = document.querySelectorAll('.edit_button'),idn=0;
+    idn=0;
 let names = document.querySelector('#name'),
     email = document.querySelector('#email'),
     username = document.querySelector('#username'),
@@ -13,7 +13,6 @@ get_request.open("get",'https://mimic-server-api.vercel.app/users/');
 get_request.onload = ()=>{create_user(get_request.response)}
 
 get_request.send()
-
 
 }
 
@@ -36,11 +35,11 @@ function create_user(response){
              edit =document.createElement("button"),
              dele =document.createElement("button");
 
-             id.textContent=ele.id,
-             name.textContent=ele.name,
-             Email.textContent=ele.email,
-             Username.textContent=ele.username,
-             edit.textContent='Edit',
+             id.textContent=ele.id;
+             name.textContent=ele.name;
+             Email.textContent=ele.email;
+             Username.textContent=ele.username;
+             edit.textContent='Edit';
              dele.textContent='Delete';
 
             edittd.append(edit);
@@ -60,28 +59,21 @@ function create_user(response){
              })
 
              dele.addEventListener('click',()=>{
-                idn=id.textContent;
+                idn=Number(id.textContent);
                 delete_database(idn);
                
              })
-
-
-  
         })  
-}
+};
 
 function popup(){
     form.classList.toggle('setting')
 }
 
-
-
 adduser.addEventListener('click',(event)=>{
   
     event.preventDefault();
-  
     if(adduser.textContent=='Edit') return datasbase('PUT',idn);
-    
     datasbase('POST');
         
 })
@@ -103,13 +95,13 @@ function datasbase(method,id){
             'email' : email.value,
             'username' : username.value
         }  
-    )
-    
+    );
+
     send_request.send(data);
     send_request.onload = ()=>{
         getdatas();
-        if(id) return error_msg('green','User editted success fully');
-        error_msg('green','User add successfully');
+        if(id) return error_msg('green', 'User edited successfully')
+        error_msg('green','User added successfully');
     }
     form.reset();
     adduser.textContent='Submit';
@@ -129,6 +121,9 @@ function error_msg(clas,cont){
 }
 
 function delete_database(sum){
+    
+    if(!sum) return error_msg('red','Invalid user id')
+
     let delete_request = new XMLHttpRequest();
     delete_request.open('DELETE',`https://mimic-server-api.vercel.app/users/${sum}`);
 
@@ -136,7 +131,6 @@ function delete_database(sum){
         getdatas();
         error_msg('red',"User deleted successfully");idn=0;
     }
-
     delete_request.send()
 }
 
