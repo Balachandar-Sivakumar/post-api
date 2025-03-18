@@ -179,12 +179,33 @@ form span{
 
 .red{
     background:rgb(255, 0, 0,.4);
-    color: red;
+    color: white;
     right: 1rem;
 }
 
 .green{
     background-color: rgb(0, 128, 0,0.4);
-    color: green;
+    color: white;
     right: 1rem;
 }
+
+td button {
+    background-color: #007bff; 
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  td button :hover {
+    background-color: #0056b3; 
+  }
+  
+  td button :active {
+    background-color: #004494; 
+    transform: scale(0.98); 
+  }
+  
